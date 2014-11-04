@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="2.4"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	
+	<servlet>
+		<servlet-name>ImageProcessAction</servlet-name>
+		<servlet-class>com.vanstone.img.server.action.ImageProcessAction</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ImageProcessAction</servlet-name>
+		<url-pattern>/img/*</url-pattern>
+	</servlet-mapping>
+</web-app>
