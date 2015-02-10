@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>imgserver</artifactId>
 		<groupId>com.vanstone</groupId>
-		<version>1.0.1</version>
+		<version>1.0.2</version>
 	</parent>
 	<artifactId>vanstone-img-server</artifactId>
 	<packaging>war</packaging>

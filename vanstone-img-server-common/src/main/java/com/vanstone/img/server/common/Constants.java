@@ -23,4 +23,7 @@ public class Constants {
 	/**请求前缀*/
 	public static final String HTTPSERVER_REQUEST_URL_PREFIX = "img";
 	
+	/**MUR种子值*/
+	public static final int MUR_MUR_HASH_SEED = 19811228;
+	
 }

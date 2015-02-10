@@ -15,7 +15,7 @@ import com.vanstone.img.server.common.Constants;
 public class DefaultServerRouteStrategy extends AbstractServerRouteStrategy {
 
 	@Override
-	public String retrievalImageServerInternal(String scaleSize, int quality, boolean watermark, String fileId, String extName, ServletRequest servletRequest) {
+	public String retrievalImageServerInternal(String url, String scaleSize, int quality, boolean watermark, String fileId, String extName, ServletRequest servletRequest) {
 		return this.getImgServerConf().getHttpserverAddresses()[Constants.SYSTEM_RANDOM.nextInt(this.getImgServerConf().getHttpserverAddresses().length)];
 	}
 	

@@ -5,6 +5,7 @@ package com.vanstone.img.server.common.strategy;
 
 import javax.servlet.ServletRequest;
 
+import com.vanstone.common.component.hash.MurmurHash3;
 import com.vanstone.img.server.common.conf.ImgServerConf;
 
 /**
@@ -29,10 +30,15 @@ public abstract class AbstractServerRouteStrategy implements ServerRouteStrategy
 		if (!this.getImgServerConf().existsHttpserverAddresses()) {
 			return null;
 		}
-		if (this.getImgServerConf().getHttpserverAddresses().length == 1) {
-			return this.getImgServerConf().getHttpserverAddresses()[0];
-		}
-		return this.retrievalImageServerInternal(scaleSize, quality, watermark, fileId, extName,servletRequest);
+		int hash = MurmurHash3.MurmurHash3_x64_32(fileId.getBytes(), 1000);
+		int lenght = this.getImgServerConf().getHttpserverCount();
+		int index = Math.abs(hash%lenght);
+//		if (this.getImgServerConf().getHttpserverAddresses().length == 1) {
+//			return this.getImgServerConf().getHttpserverAddresses()[0];
+//		}
+		String prefix = this.getImgServerConf().getHttpserverAddresses()[index];
+		return this.retrievalImageServerInternal(prefix, scaleSize, quality, watermark, fileId, extName,servletRequest);
+		
 	}
 	
 	/**
@@ -40,6 +46,6 @@ public abstract class AbstractServerRouteStrategy implements ServerRouteStrategy
 	 * @param params
 	 * @return
 	 */
-	public abstract String retrievalImageServerInternal(String scaleSize,int quality,boolean watermark,String fileId,String extName,ServletRequest servletRequest);
+	public abstract String retrievalImageServerInternal(String url, String scaleSize,int quality,boolean watermark,String fileId,String extName,ServletRequest servletRequest);
 	
 }
