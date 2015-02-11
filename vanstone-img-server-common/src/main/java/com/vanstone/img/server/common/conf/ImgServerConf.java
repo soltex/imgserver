@@ -16,8 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.vanstone.img.server.common.Constants;
-import com.vanstone.img.server.common.strategy.DefaultServerRouteStrategy;
 import com.vanstone.img.server.common.strategy.ServerRouteStrategy;
+import com.vanstone.img.server.common.strategy.support.DefaultServerRouteStrategy;
 
 /**
  * 图片服务器配置
@@ -129,6 +129,8 @@ public class ImgServerConf {
 		//httpserver.routeclass
 		if (!StringUtils.isEmpty(properties.getProperty("httpserver.routeclass"))) {
 			this.routeClass = properties.getProperty("httpserver.routeclass");
+		}else{
+			this.routeClass = "com.vanstone.img.server.common.strategy.support.FileIDHashStrategy";
 		}
 		try {
 			this.serverRouteStrategy = (ServerRouteStrategy)Class.forName(this.routeClass).newInstance();

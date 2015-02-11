@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.vanstone.img.server.common.Constants;
-import com.vanstone.img.server.common.conf.ImgServerConf;
+import com.vanstone.img.server.common.ImageURLBuilder;
 
 /**
  * 图片文件标签
@@ -52,7 +52,7 @@ public class ImageUrlTag extends TagSupport {
 	///img +  "/" + this.quality + "/" + (this.watermark ? 1:0) + "/" + this.scaleSize + "/" + fileid
 	public int doEndTag() throws JspException {
 		//开始处理生成缩放图片URL地址
-		String address = ImgServerConf.getConf().getServerRouteStrategy().retrievalImageServer(scaleSize, quality, watermark, fileId, extName, this.pageContext.getRequest());
+		String address = ImageURLBuilder.createImageURL(scaleSize, quality, watermark, fileId, extName);
 		if (address == null || "".equals(address)) {
 			throw new IllegalArgumentException("Address Empty");
 		}

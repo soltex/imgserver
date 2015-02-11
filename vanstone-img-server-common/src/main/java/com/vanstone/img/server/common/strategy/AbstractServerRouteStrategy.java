@@ -3,9 +3,9 @@
  */
 package com.vanstone.img.server.common.strategy;
 
-import javax.servlet.ServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.vanstone.common.component.hash.MurmurHash3;
 import com.vanstone.img.server.common.conf.ImgServerConf;
 
 /**
@@ -13,6 +13,8 @@ import com.vanstone.img.server.common.conf.ImgServerConf;
  * @author shipeng
  */
 public abstract class AbstractServerRouteStrategy implements ServerRouteStrategy {
+	
+	private static Logger LOG = LoggerFactory.getLogger(AbstractServerRouteStrategy.class);
 	
 	/**
 	 * 获取当前服务器配置信息
@@ -26,19 +28,16 @@ public abstract class AbstractServerRouteStrategy implements ServerRouteStrategy
 	 * @see com.vanstone.img.server.common.strategy.ServerRouteStrategy#retrievalImageServer(java.lang.String, int, boolean, java.lang.String, java.lang.String, javax.servlet.ServletRequest)
 	 */
 	@Override
-	public String retrievalImageServer(String scaleSize,int quality,boolean watermark,String fileId,String extName,ServletRequest servletRequest) {
+	public String retrievalImageServer(String scaleSize,int quality,boolean watermark,String fileId,String extName) {
 		if (!this.getImgServerConf().existsHttpserverAddresses()) {
+			LOG.error("Img Server Not Config.");
 			return null;
 		}
-		int hash = MurmurHash3.MurmurHash3_x64_32(fileId.getBytes(), 1000);
-		int lenght = this.getImgServerConf().getHttpserverCount();
-		int index = Math.abs(hash%lenght);
-//		if (this.getImgServerConf().getHttpserverAddresses().length == 1) {
-//			return this.getImgServerConf().getHttpserverAddresses()[0];
-//		}
-		String prefix = this.getImgServerConf().getHttpserverAddresses()[index];
-		return this.retrievalImageServerInternal(prefix, scaleSize, quality, watermark, fileId, extName,servletRequest);
-		
+		String serverURL = this.retrievalImageServerInternal(scaleSize, quality, watermark, fileId, extName);
+		if (serverURL.endsWith("/")) {
+			serverURL = serverURL.substring(0, serverURL.length() - 1);
+		}
+		return serverURL;
 	}
 	
 	/**
@@ -46,6 +45,6 @@ public abstract class AbstractServerRouteStrategy implements ServerRouteStrategy
 	 * @param params
 	 * @return
 	 */
-	public abstract String retrievalImageServerInternal(String url, String scaleSize,int quality,boolean watermark,String fileId,String extName,ServletRequest servletRequest);
+	public abstract String retrievalImageServerInternal(String scaleSize,int quality,boolean watermark,String fileId,String extName);
 	
 }
