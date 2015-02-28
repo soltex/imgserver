@@ -56,30 +56,30 @@ public class ImageUrlTag extends TagSupport {
 		if (address == null || "".equals(address)) {
 			throw new IllegalArgumentException("Address Empty");
 		}
-		StringBuffer sb = new StringBuffer();
-		sb.append(address);
-		if (!address.endsWith(Constants.URL_SEPARATOR)) {
-			sb.append(Constants.URL_SEPARATOR);
-		}
-		//img
-		sb.append(Constants.HTTPSERVER_REQUEST_URL_PREFIX).append(Constants.URL_SEPARATOR);
-		//quality
-		sb.append(this.quality).append(Constants.URL_SEPARATOR);
-		//watermark
-		sb.append(this.watermark ? 1 : 0).append(Constants.URL_SEPARATOR);
-		//scaleSize
-		sb.append(this.scaleSize).append(Constants.URL_SEPARATOR);
-		//fileid
-		sb.append(this.fileId);
-		if (this.extName != null && !this.extName.equals("")) {
-			sb.append(".").append(this.extName);
-		}
+//		StringBuffer sb = new StringBuffer();
+//		sb.append(address);
+//		if (!address.endsWith(Constants.URL_SEPARATOR)) {
+//			sb.append(Constants.URL_SEPARATOR);
+//		}
+//		//img
+//		sb.append(Constants.HTTPSERVER_REQUEST_URL_PREFIX).append(Constants.URL_SEPARATOR);
+//		//quality
+//		sb.append(this.quality).append(Constants.URL_SEPARATOR);
+//		//watermark
+//		sb.append(this.watermark ? 1 : 0).append(Constants.URL_SEPARATOR);
+//		//scaleSize
+//		sb.append(this.scaleSize).append(Constants.URL_SEPARATOR);
+//		//fileid
+//		sb.append(this.fileId);
+//		if (this.extName != null && !this.extName.equals("")) {
+//			sb.append(".").append(this.extName);
+//		}
 		
-		LOG.debug("Image URL : {}" , sb.toString());
+		LOG.debug("Image URL : {}" , address);
 		
 		//write string to out
 		try {
-			this.pageContext.getOut().write(sb.toString());
+			this.pageContext.getOut().write(address);
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new JspException(e);
