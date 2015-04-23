@@ -24,7 +24,7 @@
 	</distributionManagement>
 	<properties>
 		<vanstone.imgserver.version>1.0.2</vanstone.imgserver.version>
-		<vanstone.commons.version>1.2.11</vanstone.commons.version>
+		<vanstone.commons.version>1.2.12</vanstone.commons.version>
 	</properties>
 	<dependencies>
 		
